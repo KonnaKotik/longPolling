@@ -1,10 +1,13 @@
 package ru.itis.longpolling.mapper;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.itis.longpolling.form.MessageForm;
 import ru.itis.longpolling.model.Message;
+import ru.itis.longpolling.repository.UsersRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -13,21 +16,22 @@ import java.util.stream.Stream;
 @Component
 public class MessageMapper {
 
+
     @Autowired
-    private UserMapper userMapper;
+    private UsersRepository usersRepository;
 
 
     public Message convertMessageFormToMessage(MessageForm messageForm) {
         return Message.builder()
                 .text(messageForm.getValue())
-                .user(userMapper.convertDtoToModel(messageForm.getAuthor()))
+                .user(usersRepository.findByFirstName(messageForm.getNameAuthor()).orElseThrow(EntityNotFoundException::new))
                 .build();
     }
 
     public MessageForm convertModelToForm(Message message) {
         return MessageForm.builder()
                 .value(message.getText())
-                .author(userMapper.convertModelToDto(message.getUser()))
+                .nameAuthor(message.getUser().getFirstName())
                 .build();
     }
 

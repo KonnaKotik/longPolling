@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 
 @EnableJpaRepositories(basePackages = {"ru.itis.longpolling.repository"})
-@EntityScan(basePackages = {"ru.itis.longooling.model"})
+@EntityScan(basePackages = {"ru.itis.longpolling.model"})
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @SpringBootApplication
 public class LongPollingApplication {

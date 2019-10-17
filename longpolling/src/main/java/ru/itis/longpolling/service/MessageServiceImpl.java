@@ -21,6 +21,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public void save(MessageForm messageForm) {
+        messageRepository.save(messageMapper.convertMessageFormToMessage(messageForm));
+    }
+
+    @Override
     public List<MessageForm> getAllMessage() {
         return messageMapper.convertModelsToDtos(messageRepository.findAll());
     }

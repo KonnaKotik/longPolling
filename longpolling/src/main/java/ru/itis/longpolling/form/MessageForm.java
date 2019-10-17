@@ -13,7 +13,7 @@ import ru.itis.longpolling.dto.UserDto;
 @NoArgsConstructor
 public class MessageForm {
 
-    private UserDto author;
+    private String nameAuthor;
 
     private String value;
 }

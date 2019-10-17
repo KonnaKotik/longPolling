@@ -36,13 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(tokenAuthFilter, BasicAuthenticationFilter.class)
-               /* .antMatcher("/**")
-                .authenticationProvider(authenticationProvider)
-                .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/signUp").permitAll()*/
-        ;
+                .addFilterBefore(tokenAuthFilter, BasicAuthenticationFilter.class);
         http.csrf().disable();
 
 
