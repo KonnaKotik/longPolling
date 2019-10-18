@@ -1,4 +1,4 @@
-package ru.itis.longpolling.controller;
+package ru.itis.longpollingjwt.controller;
 
 
 import io.swagger.annotations.ApiOperation;
@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.longpolling.form.MessageForm;
-import ru.itis.longpolling.service.MessageService;
+import ru.itis.longpollingjwt.form.MessageForm;
+import ru.itis.longpollingjwt.service.MessageService;
 
 import java.util.List;
+
 
 @RestController
 public class MessageController {
@@ -40,19 +41,11 @@ public class MessageController {
     @PostMapping("/messages")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Object> addMessage(@RequestHeader("Authorization") String authorization, @RequestBody MessageForm messageForm) {
-        /*List<MessageForm> messages = messageService.getAllMessage();
 
-        for(MessageForm message : messages) {
-            synchronized (messages) {
-                messageService.save(message);
-                message.notifyAll();
-            }
-        }*/
         synchronized (message) {
             message.setNameAuthor(messageForm.getNameAuthor());
             message.setValue(messageForm.getValue());
             messageService.save(message);
-         //   messageService.notifyAll();
         }
 
         return ResponseEntity.ok().build();

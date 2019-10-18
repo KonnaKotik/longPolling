@@ -1,11 +1,10 @@
-package ru.itis.longpolling.form;
+package ru.itis.longpollingjwt.form;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.itis.longpolling.dto.UserDto;
 
 @Data
 @Builder
