@@ -22,15 +22,17 @@ public class MessageMapper {
 
     public Message convertMessageFormToMessage(MessageForm messageForm) {
         return Message.builder()
+                .id(messageForm.getId())
                 .text(messageForm.getValue())
-                .user(usersRepository.findByFirstName(messageForm.getNameAuthor()).orElseThrow(EntityNotFoundException::new))
+                .user(usersRepository.findOneByEmail(messageForm.getNameAuthor()).orElseThrow(EntityNotFoundException::new))
                 .build();
     }
 
     public MessageForm convertModelToForm(Message message) {
         return MessageForm.builder()
+                .id(message.getId())
                 .value(message.getText())
-                .nameAuthor(message.getUser().getFirstName())
+                .nameAuthor(message.getUser().getEmail())
                 .build();
     }
 

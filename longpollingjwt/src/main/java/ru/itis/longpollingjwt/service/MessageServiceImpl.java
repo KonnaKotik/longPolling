@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.longpollingjwt.form.MessageForm;
 import ru.itis.longpollingjwt.mapper.MessageMapper;
+import ru.itis.longpollingjwt.model.Message;
 import ru.itis.longpollingjwt.repository.MessageRepository;
 
 
@@ -22,8 +23,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void save(MessageForm messageForm) {
-        messageRepository.save(messageMapper.convertMessageFormToMessage(messageForm));
+    public MessageForm save(MessageForm messageForm) {
+        Message message = messageRepository.save(messageMapper.convertMessageFormToMessage(messageForm));
+       return messageMapper.convertModelToForm(message);
     }
 
     @Override

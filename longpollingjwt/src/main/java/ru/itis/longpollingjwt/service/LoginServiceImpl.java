@@ -32,7 +32,6 @@ public class LoginServiceImpl implements LoginService {
     private String prefix;
 
 
-
     public LoginServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
         this.usersRepository = usersRepository;
@@ -42,16 +41,17 @@ public class LoginServiceImpl implements LoginService {
     public TokenDto login(LoginForm loginForm) {
         User user = usersRepository.findOneByEmail(loginForm.getEmail()).orElseThrow(EntityNotFoundException::new);
 
-            if (passwordEncoder.matches(loginForm.getPassword(), user.getHashPassword())) {
-                return TokenDto.builder().token(getTokenAsString(user)).build();
-            } else {
-                throw new BadCredentialsException("Incorrect login/password");
-            }
+        if (passwordEncoder.matches(loginForm.getPassword(), user.getHashPassword())) {
+            System.out.println(TokenDto.builder().token(getTokenAsString(user)).build());
+            return TokenDto.builder().token(getTokenAsString(user)).build();
+        } else {
+            throw new BadCredentialsException("Incorrect login/password");
+        }
     }
 
     private String getTokenAsString(User user) {
         return prefix + " " + Jwts.builder()
-                .claim("rol", user.getUserRole().toString())
+                .claim("role", user.getUserRole().toString())
                 .claim("email", user.getEmail())
                 .setSubject(user.getId().toString())
                 .setId(UUID.randomUUID().toString())
@@ -61,7 +61,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long userId = ((UserDetailsImpl)authentication.getDetails()).getUser().getId();
+        Long userId = ((UserDetailsImpl) authentication.getDetails()).getUser().getId();
         return usersRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
     }
 

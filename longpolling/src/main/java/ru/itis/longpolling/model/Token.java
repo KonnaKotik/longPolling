@@ -1,10 +1,8 @@
 package ru.itis.longpolling.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import ru.itis.longpolling.model.user.User;
 
 import javax.persistence.*;
@@ -14,6 +12,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Entity
+@ToString(exclude = "user")
 public class Token {
 
     @Id
@@ -23,6 +22,7 @@ public class Token {
     private String value;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 }

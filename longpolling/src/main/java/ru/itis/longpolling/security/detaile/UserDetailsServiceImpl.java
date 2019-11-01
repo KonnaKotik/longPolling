@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String value) throws UsernameNotFoundException {
-        Optional<Token> authenticationCandidate = tokensRepository.findOneByValue(value);
+        Optional<Token> authenticationCandidate = tokensRepository.findByValue(value);
         if (authenticationCandidate.isPresent()) {
             Token token = authenticationCandidate.get();
             return new UserDetailsImpl(token.getUser(), token);

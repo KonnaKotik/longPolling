@@ -11,5 +11,5 @@ public interface MessageService {
 
     List<MessageForm> getAllMessage();
 
-    void save(MessageForm messageForm);
+    MessageForm save(MessageForm messageForm);
 }

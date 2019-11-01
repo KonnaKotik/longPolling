@@ -30,7 +30,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void signUp(UserCreateForm userCreateForm) {
         if(!usersRepository.existsByEmail(userCreateForm.getEmail())) {
-            userCreateForm.setHashPassword(passwordEncoder.encode(userCreateForm.getHashPassword()));
+            userCreateForm.setPassword(passwordEncoder.encode(userCreateForm.getPassword()));
             User user = userMapper.convertCreateFormToModel(userCreateForm);
             usersRepository.save(user);
         } else {

@@ -13,7 +13,7 @@ public class UserMapper {
     public User convertCreateFormToModel (UserCreateForm userCreateForm) {
         return User.builder()
                 .email(userCreateForm.getEmail())
-                .hashPassword(userCreateForm.getHashPassword())
+                .hashPassword(userCreateForm.getPassword())
                 .firstName(userCreateForm.getFirstName())
                 .lastName(userCreateForm.getLastName())
                 .userRole(UserRole.USER)

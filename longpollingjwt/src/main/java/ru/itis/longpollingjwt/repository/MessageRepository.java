@@ -6,4 +6,6 @@ import ru.itis.longpollingjwt.model.Message;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
+    Message save(Message message);
+
 }

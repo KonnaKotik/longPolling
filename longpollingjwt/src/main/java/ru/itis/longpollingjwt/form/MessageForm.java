@@ -12,12 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageForm {
 
+    private Long id;
+
     private String nameAuthor;
 
     private String value;
 
-    public void clear() {
-        this.setValue(null);
-        this.setNameAuthor(null);
-    }
 }
