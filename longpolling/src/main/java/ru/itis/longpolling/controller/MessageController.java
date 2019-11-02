@@ -62,13 +62,14 @@ public class MessageController {
             messages.put(authorization, new ArrayList<>());
         }
 
+        newMessage = messageService.save(messageForm, authorization);
+
         for(List<MessageForm> messageForms: messages.values()) {
             synchronized (messageForms) {
-                messageForms.add(messageForm);
+                messageForms.add(newMessage);
                 messageForms.notifyAll();
             }
         }
-        newMessage = messageService.save(messageForm, authorization);
 
 
         return ResponseEntity.ok().body(newMessage);

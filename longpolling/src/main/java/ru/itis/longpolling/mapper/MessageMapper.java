@@ -24,7 +24,7 @@ public class MessageMapper {
     public Message convertMessageFormToMessage(MessageForm messageForm) {
         return Message.builder()
                 .text(messageForm.getValue())
-                .user(usersRepository.findByFirstName(messageForm.getNameAuthor()).orElseThrow(EntityNotFoundException::new))
+                .user(usersRepository.findOneByEmail(messageForm.getNameAuthor()).orElseThrow(EntityNotFoundException::new))
                 .build();
     }
 
